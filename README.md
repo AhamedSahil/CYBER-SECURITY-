@@ -10,9 +10,9 @@ By employing advanced algorithms, the system can adapt to evolving fraud pattern
 
 **Tools:-** Excel,Python
 
-[Datasets Used](https://www.kaggle.com/datasets/aungpyaeap/supermarket-sales)
+[Datasets Used](https://docs.google.com/spreadsheets/d/1Yp_rcOS2TbVn-wHUIsCeCzkeDP7MIPLP/edit?usp=sharing&ouid=102868121048017441192&rtpof=true&sd=true )
 
-[SQL Analysis (Code)](supermarket_sales_projects.sql)
+[Python Script (Code)](supermarket_sales_projects.sql)
 
 [Ppt presentation](sql_prjct.pptx)
 
