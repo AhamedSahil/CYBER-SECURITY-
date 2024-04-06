@@ -12,37 +12,80 @@ By employing advanced algorithms, the system can adapt to evolving fraud pattern
 
 [Datasets Used](https://docs.google.com/spreadsheets/d/1Yp_rcOS2TbVn-wHUIsCeCzkeDP7MIPLP/edit?usp=sharing&ouid=102868121048017441192&rtpof=true&sd=true )
 
-[Python Script (Code)](supermarket_sales_projects.sql)
+[Python Script (Code)](cyber_security.ipynb)
 
 [Ppt presentation](sql_prjct.pptx)
 
-### Data preparation
+### Features 
 
-- changing the data types of date column 
+- Data preprocessing: Clean and prepare the transactional data for analysis.
+  
+- Supervised learning: Train classification models to classify transactions as fraudulent or legitimate.
+  
+- Model evaluation: Assess the performance of the models using relevant metrics such as precision, recall, and F1-score.
 
-```mysql 
-update supermarket_sales.supermarket_sales set _date = str_to_date(_date,"%m/%d/%Y");
+
+## Requirements
+
+- Python 3
+
+- Libraries: NumPy, pandas, Sklearn, etc.
+
+- Jupyter Lab
+
+## Balancing an unbalanced dataset:
+```py
+#So, we can do Undersampling technique to balance the datasets otherwise As you can see, this model is only predicting 0, which means it’s completely ignoring the minority class in favor of the majority class.
+df_majority = sample[sample.Attack == 0]
+df_minority = sample[sample.Attack == 1]
+df_majority_undersample = df_majority.sample(replace = False, n = 144503, random_state = 123)#random_state it's won't shuffle if we run this multiple time
+b_sample = pd.concat([df_majority_undersample, df_minority])
+print(b_sample.Attack.value_counts())
+b_sample.shape
+```
+```py
+fig = plt.figure(figsize = (8,5))
+b_sample.Attack.value_counts().plot(kind='bar', color= ['blue','green'], alpha = 0.9, rot=0)
+plt.title('Distribution of data based on the Binary attacks of our balanced dataset')
+plt.show()
+```
+###### Result: 
+
+![image](https://github.com/AhamedSahil/CYBER-SECURITY-/assets/164605797/acf581f1-9322-4448-ab43-de832070a2ce)
+
+## Model evaluation:
+#### Decision Tree Algorithm
+```py
+ds=DecisionTreeClassifier(max_depth=3)
+ds.fit(x_train,y_train)
+train_pred=ds.predict(x_train)
+test_pred=ds.predict(x_test)
+print(accuracy_score(train_pred,y_train))
+print(accuracy_score(test_pred,y_test))
+```
+```py
+#creating list for train test accuracy
+train_test = ['Train','test']
+aucc = [dt_aucc,dt_test] 
+plt.figure(figsize=(8, 4))
+# Plot the bar graph
+bars = plt.bar(train_test, aucc, color=['green', 'skyblue'])
+#Add Labels and title 
+plt.xlabel('Decision Tree')
+plt.ylabel('Accuracy')
+plt.title('Accuracy Comparison for train test')
+#Show the plot
+plt.show()
 ```
 
-- adding a new colunm as sentiment fro rating purpose
+###### Result:
 
-```mysql
-alter table supermarket_sales add column sentiment varchar(25) ;select count(sentiment) from supermarket_sales where sentiment is null ;
-```
+![image](https://github.com/AhamedSahil/CYBER-SECURITY-/assets/164605797/d051c597-d389-417b-b8bd-bb3c28882575)
 
-- we have fill some categorical data like 'negetive' if rating between 0 to 4,'netural' when rating between 4 to 6,'Good' when rating between 6 to 8 and 'Very Good' when rating betweeen 8 to 11 in sentiment column with the help of  rating column
-```mysql 
-start transaction;
-savepoint sentiment_insertion;update supermarket_sales set rating = round(rating);
-update supermarket_sales set sentiment= case when rating between 0 and 4 then "negetive"
-when rating between 4 and 6 then "neutral"                                        
-when rating between 6 and 8 then "Good"                                        
-when rating between 8 and 11 then "very Good"
-end ;
-```
-Result:
 
-![image](https://github.com/AhamedSahil/Project-1/assets/164605797/95b3e962-8e26-42d6-aaab-bc7aa2183484)
+
+
+
 - coverted  invoice column into primary key
 ```mysql
 ALTER TABLE supermarket_sales.supermarket_sales
