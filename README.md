@@ -14,7 +14,7 @@ By employing advanced algorithms, the system can adapt to evolving fraud pattern
 
 [Python Script (Code)](cyber_security.ipynb)
 
-[Ppt presentation](sql_prjct.pptx)
+[ppt](https://github.com/AhamedSahil/CYBER-SECURITY-/blob/354eecd7faf4829aba6d4a22757092a5f6586578/Cyber%20Security%20Business%20Plan%20by%20Slidesgo.pptx)
 
 ### Features 
 
